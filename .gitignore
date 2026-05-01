@@ -1,0 +1,23 @@
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+*.swp
+*.swo
+.idea/
+.vscode/
+
+# Secrets — never commit
+.env
+.env.local
+.env.*.local
+
+# Python bytecode
+__pycache__/
+*.pyc
+
+# Generated outputs
+output/
+
