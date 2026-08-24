@@ -1,0 +1,27 @@
+name: Build check
+
+# Required status check that gates agent auto-merge. This repo has no package
+# manager / build step (a framework doc + one worked Python example) -- the
+# real check is that every Python file still parses. Extend this if the repo
+# grows a real dependency manifest or test suite; a syntax check is deliberately
+# the floor, not the ceiling. Added 2026-08-24.
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Syntax-check every Python file
+        run: |
+          set -e
+          find . -name "*.py" -not -path "./.git/*" -print0 | xargs -0 -r -n1 python3 -m py_compile
